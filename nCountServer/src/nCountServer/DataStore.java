@@ -1,5 +1,6 @@
 package nCountServer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -11,6 +12,8 @@ public class DataStore
 	private static int _numTriggers = 0;
 	
 	private static HashMap<Integer, Integer> IDMap = new HashMap<Integer, Integer>();
+	
+	public static ArrayList<Device> deviceList = new ArrayList<Device>();
 	
 	public static String[] COUNT;
 	public static String mainCounter;
