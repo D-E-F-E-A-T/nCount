@@ -1,2 +1,2 @@
 # nCount
-nCount is an open-source people counter framework for business intelligence
+nCount is an open-source people counter framework for business intelligence (WIP, not finished)
