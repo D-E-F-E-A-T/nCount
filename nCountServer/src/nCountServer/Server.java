@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,7 +19,15 @@ public class Server
 	{
 		this.st = st;
 		Chocolat.println("[" + st.elapsedTime() + "] Server Listener initialized.");
-		ssock = new ServerSocket(12253);
+		try
+		{
+			ssock = new ServerSocket(12253);
+		}
+		catch (BindException ex0)
+		{
+			System.err.println("[" + st.elapsedTime() + "] FATAL: There is more than one instance of nCountServer running. (" + ex0 + ")");
+			System.exit(0);
+		}
 	}
 	
 	public void run() throws IOException
@@ -62,8 +71,7 @@ class ServerThread implements Runnable
 				    s += "Content-Type: text/html\r\n\r\n";
 					if((receiveMessage = receiveRead.readLine()) != null)
 					{
-						Chocolat.println(receiveMessage);
-						if (receiveMessage.contains("GET /index.html"))
+						if (receiveMessage.contains("GET /index.html") || receiveMessage.substring(receiveMessage.indexOf("GET"), receiveMessage.indexOf("HTTP")).matches("GET / "))
 						{
 							s += "\n" + 
 									"<!DOCTYPE HTML>\n" + 
