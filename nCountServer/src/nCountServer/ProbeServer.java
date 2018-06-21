@@ -59,6 +59,7 @@ class ProbeServerThread implements Runnable
 	{
 		try
 		{
+			DataStore.incrementNumSensors();
 			StringTokenizer stok = null;
 			String receiveMessage;
 			bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
@@ -72,12 +73,26 @@ class ProbeServerThread implements Runnable
 			{
 				try
 				{	
+					// System.out.println("A");
+					if (sock.isClosed())
+					{
+						isclosed = true;
+						break;
+					}
 					if (isclosed)
 					{
 						break;
 					}
-					while((receiveMessage = receiveRead.readLine()) != null)
+					receiveMessage = null;
+					receiveMessage = receiveRead.readLine();
+					if(receiveMessage != null)
 					{
+						// System.out.println("B");
+						if (sock.isClosed())
+						{
+							isclosed = true;
+							break;
+						}
 						if (isclosed)
 						{
 							break;
@@ -124,15 +139,23 @@ class ProbeServerThread implements Runnable
 							}
 						}
 					}
+					else
+					{
+						isclosed = true;
+						break;
+					}
 				}
 				catch (Exception e)
 				{
 					Chocolat.println("[" + st.elapsedTime() + "] ProbeServerThread was interrupted: " + e);
+					isclosed = true;
 					e.printStackTrace();
+					break;
 				}
 			}
 			if (isclosed)
 			{
+				DataStore.decrementNumSensors();
 				sock.close();
 			}
 		}
