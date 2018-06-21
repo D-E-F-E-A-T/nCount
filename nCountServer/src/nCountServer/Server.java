@@ -30,12 +30,20 @@ public class Server
 		}
 	}
 	
-	public void run() throws IOException
+	public void run()
 	{
 	    Chocolat.println("[" + st.elapsedTime() + "] Server Listening...");
 	    while (true) 
 	    {
-	    	Socket sock = ssock.accept();
+	    	Socket sock = null;
+			try 
+			{
+				sock = ssock.accept();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 	    	Chocolat.println("[" + st.elapsedTime() + "] Server Connected.");
 	        new Thread(new ServerThread(sock, st)).start();
 	    }

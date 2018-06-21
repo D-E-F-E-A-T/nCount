@@ -13,10 +13,33 @@ public class SocketHandler
 		stp = new Stopwatch();
 		initAssets();
 		Server listener;
+		ProbeServer probelistener;
 		try
 		{
 			listener = new Server(stp);
-			listener.run();
+			new Thread(new Runnable() 
+			{
+			    public void run() 
+			    {
+			        listener.run();
+			    }
+			}).start();
+		} 
+		catch (IOException e) 
+		{
+			Chocolat.println(e.toString());
+		}
+		
+		try
+		{
+			probelistener = new ProbeServer(stp);
+			new Thread(new Runnable() 
+			{
+			    public void run() 
+			    {
+			        probelistener.run();
+			    }
+			}).start();
 		} 
 		catch (IOException e) 
 		{

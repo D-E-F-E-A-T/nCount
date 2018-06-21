@@ -35,7 +35,10 @@ public class DataStore
 	
 	public static void decrementNumSensors()
 	{
-		_numSensors--;
+		if (_numSensors != 0)
+		{
+			_numSensors--;
+		}
 	}
 	
 	public static int getNumTriggers()
@@ -55,7 +58,10 @@ public class DataStore
 	
 	public static void decrementNumTriggers()
 	{
-		_numTriggers--;
+		if (_numTriggers != 0)
+		{
+			_numTriggers--;
+		}
 	}
 	
 	public static boolean idExists(int id)
