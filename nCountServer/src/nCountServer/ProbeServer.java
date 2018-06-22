@@ -58,6 +58,7 @@ class ProbeServerThread implements Runnable
 	{
 		try
 		{
+			Device d = null;
 			StringTokenizer stok = null;
 			String receiveMessage;
 			bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
@@ -106,12 +107,23 @@ class ProbeServerThread implements Runnable
 								int id = Integer.parseInt(stok.nextToken());
 								String mac = stok.nextToken();
 								isSatisfied = true;
+								bw.write("auth_successful\n");
+								bw.flush();
 								DataStore.incrementNumSensors();
+								if(!DataStore.idExists(id))
+								{
+									d = new Device(id, mac);
+									DataStore.newID(id);
+									DataStore.deviceList.add(d);
+									DataStore.updateDeviceList();
+									// send the reset message.
+									
+								}
 							}
 							catch (Exception e)
 							{
 								Chocolat.println("[" + st.elapsedTime() + "] ProbeServerThread auth failed: " + e);
-								bw.write("failed_reqauth\n");
+								bw.write("auth_failed\n");
 								bw.flush();
 							}
 						}
@@ -155,6 +167,9 @@ class ProbeServerThread implements Runnable
 			if (isclosed)
 			{
 				DataStore.decrementNumSensors();
+				DataStore.destroyID(d.getID());
+				DataStore.deviceList.remove(d);
+				DataStore.updateDeviceList();
 				sock.close();
 			}
 		}

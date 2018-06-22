@@ -17,6 +17,8 @@ public class DataStore
 	
 	public static String[] COUNT;
 	public static String mainCounter;
+	
+	public static String deviceListString = "No sensors connected";
 
 	public static int getNumSensors()
 	{
@@ -111,6 +113,23 @@ public class DataStore
 			    // (stack.pop());
 				int tmp = stack.pop();
 				mainCounter += "<img src=\""+ DataStore.COUNT[tmp] + "\" alt=\"" + tmp + "\">" ;
+			}
+		}
+	}
+	
+	public static void updateDeviceList()
+	{
+		if(deviceList.isEmpty())
+		{
+			deviceListString = "No sensors connected";
+		}
+		else
+		{
+			deviceListString = "ID       |         MAC<br>\n";
+			for(Device d : deviceList)
+			{
+				deviceListString += d.getID() + "       |         " + d.getMAC() + "\n";
+				deviceListString += "<br>";
 			}
 		}
 	}

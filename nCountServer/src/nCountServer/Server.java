@@ -182,13 +182,6 @@ class ServerThread implements Runnable
 									DataStore.getNumSensors() +
 									" sensors):</p>\n" + 
 									"		<br>\n" + 
-									//"		<img alt=\"0\" src=\"altcounters/0.gif\">\n" + 
-									//"		<img alt=\"0\" src=\"altcounters/0.gif\">\n" + 
-									//"		<img alt=\"0\" src=\"altcounters/0.gif\">\n" + 
-									//"		<img alt=\"0\" src=\"altcounters/0.gif\">\n" + 
-									//"		<img alt=\"2\" src=\"altcounters/2.gif\">\n" + 
-									//"		<img alt=\"1\" src=\"altcounters/1.gif\">\n" + 
-									//"		<img alt=\"4\" src=\"altcounters/4.gif\">\n" + 
 									DataStore.mainCounter +
 									"		</center>\n" + 
 									"	\n" + 
@@ -212,20 +205,7 @@ class ServerThread implements Runnable
 									"	<p>\n" + 
 									"	Device List\n" + 
 									"	<br>\n" + 
-									"	ID    |    MAC\n" + 
-									"	<br>\n" + 
-									"	--------------\n" + 
-									"	<br>\n" + 
-									"	1     |   xxxx\n" + 
-									"	<br>\n" + 
-									"	--------------\n" + 
-									"	<br>\n" + 
-									"	2     |   xxxx\n" + 
-									"	<br>\n" + 
-									"	--------------\n" + 
-									"	<br>\n" + 
-									"	3     |   xxxx\n" + 
-									"	<br>\n" + 
+									DataStore.deviceListString +
 									"\n" + 
 									"</div>\n" + 
 									"</div>\n" + 
