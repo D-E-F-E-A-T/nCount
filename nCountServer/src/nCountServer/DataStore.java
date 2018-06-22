@@ -137,4 +137,15 @@ public class DataStore
 		}
 	}
 	
+	public static void alterPeopleCounter(int id, int amount)
+	{
+		if (idExists(id))
+		{
+			int curVal = IDMap.get(id);
+			int curTotalTriggers = getNumTriggers();
+			setLastKnownValue(id, curVal + amount);
+			setNumTriggers(curTotalTriggers + amount);
+		}
+	}
+	
 }

@@ -45,6 +45,8 @@ class ProbeServerThread implements Runnable
 	Stopwatch st;
 	BufferedWriter bw;
 	
+	Thread thr;
+	
 	boolean isclosed = false;
 	
 	public ProbeServerThread(Socket sock, Stopwatch st)
@@ -58,6 +60,7 @@ class ProbeServerThread implements Runnable
 	{
 		try
 		{
+			// TODO: We need to start another thread on this socket to ask for the number of people counted periodically
 			Device d = null;
 			StringTokenizer stok = null;
 			String receiveMessage;
@@ -116,8 +119,6 @@ class ProbeServerThread implements Runnable
 									DataStore.newID(id);
 									DataStore.deviceList.add(d);
 									DataStore.updateDeviceList();
-									// send the reset message.
-									
 								}
 							}
 							catch (Exception e)
@@ -136,8 +137,14 @@ class ProbeServerThread implements Runnable
 						{
 							if (receiveMessage.matches("inc"))
 							{
-								DataStore.incrementNumTriggers();
-								bw.write("inc\n");
+								DataStore.alterPeopleCounter(d.getID(), 1);
+								bw.write("inc_done\n");
+								bw.flush();
+							}
+							else if (receiveMessage.matches("dec"))
+							{
+								DataStore.alterPeopleCounter(d.getID(), -1);
+								bw.write("dec_done\n");
 								bw.flush();
 							}
 							else if (receiveMessage.matches("exit"))
