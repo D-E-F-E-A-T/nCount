@@ -1,6 +1,7 @@
 package nCountServer;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -19,6 +20,8 @@ public class DataStore
 	public static String mainCounter;
 	
 	public static String deviceListString = "No sensors connected";
+	
+	public static Date refDate = null;
 
 	public static int getNumSensors()
 	{

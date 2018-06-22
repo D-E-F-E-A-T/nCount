@@ -3,10 +3,12 @@ package nCountServer;
 public class Stopwatch
 {
 	private final long start;
+	private final long startN;
 	
 	public Stopwatch()
 	{
 		start = System.currentTimeMillis();
+		startN = System.nanoTime();
 	}
 	
 	public double elapsedTime() 
@@ -18,6 +20,11 @@ public class Stopwatch
 	public double getTime()
 	{
 		return System.currentTimeMillis()/1000.0;
+	}
+	
+	public double getElapsedNanoTime()
+	{
+		return System.nanoTime() - startN;
 	}
 	
 } 

@@ -1,5 +1,7 @@
 package nCountServer;
 
+import java.util.Date;
+
 public class CounterUpdatorThread implements Runnable
 {
 	@Override
@@ -8,6 +10,7 @@ public class CounterUpdatorThread implements Runnable
 		for(;;)
 		{
 			DataStore.updateMainCounter();
+			DataStore.refDate = new Date(System.currentTimeMillis());
 			try 
 			{
 				Thread.sleep(1000);

@@ -79,6 +79,7 @@ class ServerThread implements Runnable
 				    s += "Content-Type: text/html\r\n\r\n";
 					if((receiveMessage = receiveRead.readLine()) != null)
 					{
+						double start = st.getElapsedNanoTime();
 						if (receiveMessage.contains("GET /index.html") || receiveMessage.substring(receiveMessage.indexOf("GET"), receiveMessage.indexOf("HTTP")).matches("GET / "))
 						{
 							s += "\n" + 
@@ -209,6 +210,14 @@ class ServerThread implements Runnable
 									"\n" + 
 									"</div>\n" + 
 									"</div>\n" + 
+									"<center><br />\n" + 
+									"<font size=\"1\">" +
+									"        Page generated in " +
+									(double)((st.getElapsedNanoTime() - start)/ 1000000000.0) +
+									" seconds [ 100% Java (nCountServer WebServer) ]       <br />\n" + 
+									"        Server Local Time: " +
+									DataStore.refDate.toString() +
+									"<br></font></center>" +
 									"</body>\n" + 
 									"</html>\n";
 							// break;
@@ -291,6 +300,14 @@ class ServerThread implements Runnable
 									"</div>\n" + 
 									"\n" + 
 									"</div>\n" + 
+									"<center><br />\n" + 
+									"<font size=\"1\">" +
+									"        Page generated in " +
+									(double)((st.getElapsedNanoTime() - start)/ 1000000000.0) +
+									" seconds [ 100% Java (nCountServer WebServer) ]       <br />\n" + 
+									"        Server Local Time: " +
+									DataStore.refDate.toString() +
+									"<br></font></center>" +
 									"</body>\n" + 
 									"</html>\n";
 						}
@@ -364,6 +381,14 @@ class ServerThread implements Runnable
 									"</div>\n" + 
 									"\n" + 
 									"</div>\n" + 
+									"<center><br />\n" + 
+									"<font size=\"1\">" +
+									"        Page generated in " +
+									(double)((st.getElapsedNanoTime() - start)/ 1000000000.0) +
+									" seconds [ 100% Java (nCountServer WebServer) ]       <br />\n" + 
+									"        Server Local Time: " +
+									DataStore.refDate.toString() +
+									"<br></font></center>" +
 									"</body>\n" + 
 									"</html>\n";
 						}
