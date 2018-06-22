@@ -2,7 +2,6 @@ package nCountServer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -59,7 +58,6 @@ class ProbeServerThread implements Runnable
 	{
 		try
 		{
-			DataStore.incrementNumSensors();
 			StringTokenizer stok = null;
 			String receiveMessage;
 			bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
@@ -108,6 +106,7 @@ class ProbeServerThread implements Runnable
 								int id = Integer.parseInt(stok.nextToken());
 								String mac = stok.nextToken();
 								isSatisfied = true;
+								DataStore.incrementNumSensors();
 							}
 							catch (Exception e)
 							{
