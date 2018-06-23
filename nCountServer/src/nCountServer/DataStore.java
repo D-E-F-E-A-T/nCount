@@ -13,6 +13,7 @@ public class DataStore
 	private static int _numTriggers = 0;
 	
 	private static HashMap<Integer, Integer> IDMap = new HashMap<Integer, Integer>();
+	private static HashMap<Integer, String> IDSpecificCounterMap = new HashMap<Integer, String>();
 	
 	public static ArrayList<Device> deviceList = new ArrayList<Device>();
 	
@@ -23,6 +24,21 @@ public class DataStore
 	
 	public static Date refDate = null;
 
+	public static String getCounterString(int id)
+	{
+		return IDSpecificCounterMap.get(id);
+	}
+	
+	public static void putCounterString(int id, int num)
+	{
+		IDSpecificCounterMap.put(id, getCounterFormattedString(num));
+	}
+	
+	public static boolean existCounterString(int id)
+	{
+		return IDSpecificCounterMap.containsKey(id);
+	}
+	
 	public static int getNumSensors()
 	{
 		return _numSensors;
@@ -94,10 +110,9 @@ public class DataStore
 		IDMap.remove(id);
 	}
 	
-	public static void updateMainCounter()
+	public static String getCounterFormattedString(int number)
 	{
-		mainCounter = "";
-		int number = _numTriggers;
+		String ret = "";
 		Stack<Integer> stack = new Stack<Integer>();
 		while (number > 0) 
 		{
@@ -107,17 +122,23 @@ public class DataStore
 
 		if (stack.isEmpty()) 
 		{
-			mainCounter += "<img src=\""+ DataStore.COUNT[0] + "\" alt=\"" + 0 + "\">" ;
+			ret += "<img src=\""+ DataStore.COUNT[0] + "\" alt=\"" + 0 + "\">" ;
 		}
 		else
 		{
 			while (!stack.isEmpty()) 
 			{
-			    // (stack.pop());
 				int tmp = stack.pop();
-				mainCounter += "<img src=\""+ DataStore.COUNT[tmp] + "\" alt=\"" + tmp + "\">" ;
+				ret += "<img src=\""+ DataStore.COUNT[tmp] + "\" alt=\"" + tmp + "\">" ;
 			}
 		}
+		return ret;
+	}
+	
+	public static void updateMainCounter()
+	{
+		mainCounter = "";
+		mainCounter = getCounterFormattedString(_numTriggers);
 	}
 	
 	public static void updateDeviceList()
@@ -145,6 +166,8 @@ public class DataStore
 			int curTotalTriggers = getNumTriggers();
 			setLastKnownValue(id, curVal + amount);
 			setNumTriggers(curTotalTriggers + amount);
+			putCounterString(id, getLastKnownValue(id));
+			System.out.println(getCounterFormattedString(id));
 		}
 	}
 	
