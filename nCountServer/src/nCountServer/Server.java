@@ -403,7 +403,6 @@ class ServerThread implements Runnable
 								Chocolat.println("[" + st.elapsedTime() + "] Error searching sensor by reference ID: " + e);
 								e.printStackTrace();
 							}
-							bw.write(s);
 						}
 						else
 						{
