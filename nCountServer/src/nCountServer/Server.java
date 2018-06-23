@@ -311,6 +311,21 @@ class ServerThread implements Runnable
 									"</body>\n" + 
 									"</html>\n";
 						}
+						else if (receiveMessage.contains("GET /post?tags="))
+						{
+							System.out.println(receiveMessage.indexOf("/post?tags="));
+							String tmpA = receiveMessage.substring(receiveMessage.indexOf("?tags=") + 6);
+							String tmpB = tmpA.substring(0, tmpA.indexOf("HTTP") - 1);
+							try
+							{
+								Integer.parseInt(tmpB);
+							}
+							catch (NumberFormatException e)
+							{
+								Chocolat.println("[" + st.elapsedTime() + "] Error searching sensor by reference ID: " + e);
+								e.printStackTrace();
+							}
+						}
 						else
 						{
 							s += "\n" + 
