@@ -670,6 +670,9 @@ class ServerThread implements Runnable
 									"	</p>\n" + 
 									"	</center>\n" + 
 									"</div>\n" + 
+									"<br><br><center>" +
+									"<img src=\""+ DataStore.FourO404 + "\" alt=\"404-image.png\">" +
+									"</center><br>" +
 									"\n" + 
 									"</div>\n" + 
 									"<center><br />\n" + 

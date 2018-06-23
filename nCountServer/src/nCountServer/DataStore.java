@@ -18,6 +18,8 @@ public class DataStore
 	
 	public static ArrayList<Device> deviceList = new ArrayList<Device>();
 	
+	public static String FourO404 = "";
+	
 	public static String[] COUNT;
 	public static String mainCounter;
 	
