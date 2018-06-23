@@ -322,9 +322,88 @@ class ServerThread implements Runnable
 							}
 							catch (NumberFormatException e)
 							{
+								s += "\n" + 
+										"<!DOCTYPE HTML>\n" + 
+										"<html>\n" + 
+										"<head>\n" + 
+										"	<meta charset='utf-8'>\n" + 
+										"	<title>nCount webUI</title> \n" + 
+										"    	<meta name=\"theme-color\" content=\"#00549e\">\n" + 
+										"	<link rel=\"top\" title=\"nCount\" href=\"/\">			\n" + 
+										"	<style type=\"text/css\">\n" + 
+										"		body,div,h1,h2,h3,h4,h5,h6,p,ul,li,dd,dt {\n" + 
+										"			font-family:verdana,sans-serif;\n" + 
+										"			color:white;\n" + 
+										"			margin:0;\n" + 
+										"			padding:0;\n" + 
+										"			background:none;\n" + 
+										"		}\n" + 
+										"\n" + 
+										"		body {\n" + 
+										"			background-attachment:fixed;\n" + 
+										"			background-position:50% 0%;\n" + 
+										"			background-repeat:no-repeat;\n" + 
+										"			background-color:#012e57;\n" + 
+										"		}\n" + 
+										"\n" + 
+										"		div#content2 {\n" + 
+										"			text-align: center;\n" + 
+										"			position:absolute;\n" + 
+										"			top:28em;\n" + 
+										"			left:0;\n" + 
+										"			right:0;\n" + 
+										"		}\n" + 
+										"\n" + 
+										"		.mascotbox {\n" + 
+										"			background-repeat:no-repeat;\n" + 
+										"			background-attachment:fixed;\n" + 
+										"			background-position:50% 0%;\n" + 
+										"			margin-left: auto;\n" + 
+										"			margin-right: auto;\n" + 
+										"			margin-top:10px;\n" + 
+										"			margin-bottom:10px;\n" + 
+										"			padding:2px 0px;\n" + 
+										"			width:480px;\n" + 
+										"			border-radius: 5px;\n" + 
+										"			box-shadow: 0px 0px 5px #000;\n" + 
+										"			text-shadow:0px 0px 2px black, 0px 0px 6px black;\n" + 
+										"		}\n" + 
+										"\n" + 
+										"		#searchbox { padding-bottom:5px; }\n" + 
+										"		#searchbox3 { font-size: 80%; }\n" + 
+										"		#searchbox4 { font-size: 60%; }\n" + 
+										"	</style>\n" + 
+										"</head>\n" + 
+										"<body>\n" + 
+										"<br>\n" + 
+										"<br>\n" + 
+										"<br>\n" + 
+										"<br>\n" + 
+										"<br>\n" + 
+										"<br>\n" + 
+										"<div id='searchbox3' class='mascotbox'>\n" + 
+										"	<center>\n" + 
+										"	<p>\n" + 
+										"	ERROR 400: The sensor was not found, because you inputted an invalid name." +
+										"	</p>\n" + 
+										"	</center>\n" + 
+										"</div>\n" + 
+										"\n" + 
+										"</div>\n" + 
+										"<center><br />\n" + 
+										"<font size=\"1\">" +
+										"        Page generated in " +
+										(double)((st.getElapsedNanoTime() - start)/ 1000000000.0) +
+										" seconds [ 100% Java (nCountServer WebServer) ]       <br />\n" + 
+										"        Server Local Time: " +
+										DataStore.refDate.toString() +
+										"<br></font></center>" +
+										"</body>\n" + 
+										"</html>\n";
 								Chocolat.println("[" + st.elapsedTime() + "] Error searching sensor by reference ID: " + e);
 								e.printStackTrace();
 							}
+							bw.write(s);
 						}
 						else
 						{
