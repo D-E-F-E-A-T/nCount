@@ -10,6 +10,7 @@ public class DataStore
 	public static final String VERSION_ID = "0.1-nightly";
 	
 	private static int _numSensors = 0;
+	private static int _numSensorsOnline = 0;
 	private static int _numTriggers = 0;
 	
 	private static HashMap<Integer, Integer> IDMap = new HashMap<Integer, Integer>();
@@ -60,6 +61,24 @@ public class DataStore
 		{
 			_numSensors--;
 		}
+	}
+	
+	public static void incrementNumSensorsOnline()
+	{
+		_numSensorsOnline++;
+	}
+	
+	public static void decrementNumSensorsOnline()
+	{
+		if (_numSensorsOnline != 0)
+		{
+			_numSensorsOnline--;
+		}
+	}
+
+	public static int getNumSensorsOnline()
+	{
+		return _numSensorsOnline;
 	}
 	
 	public static int getNumTriggers()
@@ -167,7 +186,6 @@ public class DataStore
 			setLastKnownValue(id, curVal + amount);
 			setNumTriggers(curTotalTriggers + amount);
 			putCounterString(id, getLastKnownValue(id));
-			System.out.println(getCounterFormattedString(id));
 		}
 	}
 	

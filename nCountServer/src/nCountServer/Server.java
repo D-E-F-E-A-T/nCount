@@ -191,7 +191,7 @@ class ServerThread implements Runnable
 									"<div id='searchbox3' class='mascotbox'>\n" + 
 									"	<center>\n" + 
 									"	<p>\n" + 
-									DataStore.getNumSensors() + 
+									DataStore.getNumSensorsOnline() + 
 									"		sensors online<br />\n" + 
 									"		version: " +
 									DataStore.VERSION_ID +

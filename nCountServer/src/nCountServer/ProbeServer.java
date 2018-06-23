@@ -114,17 +114,21 @@ class ProbeServerThread implements Runnable
 								isSatisfied = true;
 								bw.write("auth_successful\n");
 								bw.flush();
-								DataStore.incrementNumSensors();
-								if(!DataStore.idExists(id))
+								DataStore.incrementNumSensorsOnline();
+								if (!DataStore.idExists(id))
 								{
-									d = new Device(id, mac);
-									d.setAuthenticated(true);
-									querythread = new Thread(new PeriodicQueryThread(bw, d, st));
-									querythread.start();
-									DataStore.newID(id);
-									DataStore.deviceList.add(d);
-									DataStore.updateDeviceList();
+									DataStore.incrementNumSensors();
 								}
+								d = new Device(id, mac);
+								d.setAuthenticated(true);
+								querythread = new Thread(new PeriodicQueryThread(bw, d, st));
+								querythread.start();
+								if (!DataStore.idExists(id))
+								{
+									DataStore.newID(id);
+								}
+								DataStore.deviceList.add(d);
+								DataStore.updateDeviceList();
 							}
 							catch (Exception e)
 							{
@@ -197,7 +201,7 @@ class ProbeServerThread implements Runnable
 			}
 			if (isclosed)
 			{
-				DataStore.decrementNumSensors();
+				DataStore.decrementNumSensorsOnline();
 				// DataStore.destroyID(d.getID());
 				DataStore.deviceList.remove(d);
 				DataStore.updateDeviceList();
