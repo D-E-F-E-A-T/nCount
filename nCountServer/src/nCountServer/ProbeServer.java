@@ -198,7 +198,7 @@ class ProbeServerThread implements Runnable
 			if (isclosed)
 			{
 				DataStore.decrementNumSensors();
-				DataStore.destroyID(d.getID());
+				// DataStore.destroyID(d.getID());
 				DataStore.deviceList.remove(d);
 				DataStore.updateDeviceList();
 				querythread.stop();
