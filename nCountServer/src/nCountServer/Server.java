@@ -666,7 +666,7 @@ class ServerThread implements Runnable
 									"<div id='searchbox3' class='mascotbox'>\n" + 
 									"	<center>\n" + 
 									"	<p>\n" + 
-									"	ERROR 404: Page Not Found" +
+									"	<strong>ERROR 404: Page Not Found.</strong><br><br>The page you were trying to access got caught by Mr. Tripp while it was spreading a homemade virus, and is currently being detained with lots of prejudice in the office by an sassy powertripping SJW woman.<br><br>He will be back shortly." +
 									"	</p>\n" + 
 									"	</center>\n" + 
 									"</div>\n" + 
