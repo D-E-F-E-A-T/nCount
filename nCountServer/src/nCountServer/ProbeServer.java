@@ -55,6 +55,7 @@ class ProbeServerThread implements Runnable
 		this.st = st;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() 
 	{
@@ -67,6 +68,7 @@ class ProbeServerThread implements Runnable
 			bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
 			InputStream istream = sock.getInputStream();
 			BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+			Thread querythread = null;
 			boolean isSatisfied = false;
 			bw.write("reqauth\n");
 			bw.newLine();
@@ -116,6 +118,9 @@ class ProbeServerThread implements Runnable
 								if(!DataStore.idExists(id))
 								{
 									d = new Device(id, mac);
+									d.setAuthenticated(true);
+									querythread = new Thread(new PeriodicQueryThread(bw, d, st));
+									querythread.start();
 									DataStore.newID(id);
 									DataStore.deviceList.add(d);
 									DataStore.updateDeviceList();
@@ -147,6 +152,25 @@ class ProbeServerThread implements Runnable
 								bw.write("dec_done\n");
 								bw.flush();
 							}
+							else if (receiveMessage.contains("add_num_people"))
+							{
+								try
+								{
+									stok = new StringTokenizer(receiveMessage);
+									stok.nextToken();
+									int numAdd = Integer.parseInt(stok.nextToken());
+									DataStore.alterPeopleCounter(d.getID(), numAdd);
+									// TODO: Once the MCU receives the query_success command, it should reset its' own relative count to zero.
+									bw.write("query_success\n");
+									bw.flush();
+								}
+								catch (Exception e)
+								{
+									Chocolat.println("[" + st.elapsedTime() + "] ProbeServerThread query update failed: " + e);
+									bw.write("query_failed\n");
+									bw.flush();
+								}
+							}
 							else if (receiveMessage.matches("exit"))
 							{
 								bw.write("exiting\n");
@@ -177,6 +201,7 @@ class ProbeServerThread implements Runnable
 				DataStore.destroyID(d.getID());
 				DataStore.deviceList.remove(d);
 				DataStore.updateDeviceList();
+				querythread.stop();
 				sock.close();
 			}
 		}
