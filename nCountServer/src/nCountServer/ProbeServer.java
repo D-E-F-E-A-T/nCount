@@ -127,6 +127,8 @@ class ProbeServerThread implements Runnable
 								if (!DataStore.idExists(id))
 								{
 									DataStore.newID(id);
+									DataStore.setLastKnownValue(id, 0);
+									DataStore.putCounterString(id, 0);
 									Chocolat.println("[" + st.elapsedTime() + "] New Device Connected! Bonjour, allons-y! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
 								}
 								else
