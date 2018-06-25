@@ -4,14 +4,15 @@
 #include <ESP8266WiFi.h>        // Include the Wi-Fi library
 
 #define HOST "192.168.1.125"
-#define PORT 80
+#define PORT 27374
+#define IDNUM 1
 
 //////////////////////////////////////
 // USER CONFIGURABLE SETTINGS BELOW //
 //////////////////////////////////////
 
-const char* ssid     = "WiFi";         // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "password";     // The password of the Wi-Fi network
+const char* ssid     = "SSID";         // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password = "PASSWORD";     // The password of the Wi-Fi network
 
 uint32_t timesActivated = 0;
 
@@ -52,19 +53,6 @@ bool authStatus = false;
 
 void runServer()
 {
-  if(!client.connected())
-  {
-    Serial.println("No connection yet, beginning connection...");
-    if (!client.connect(HOST, PORT))
-    {
-      Serial.println("Connection failed");
-      authStatus = false;
-    }
-    else
-    {
-      Serial.println("Connection success");
-    }
-  }
   if(client && client.connected())
   {
     // authenticate and listen for commands from server.
@@ -72,12 +60,29 @@ void runServer()
     {
       // send the authentication command "AUTH [ID] [MacAddr]"
       // if we have successfully authenticated (response back is "auth_successful") then set authStatus to true. Next time runServer() is called.
+      Serial.println("Authenticating...");
+      String printStr;
+      printStr += "AUTH ";
+      printStr += IDNUM;
+      printStr += " ";
+      printStr += macID;
+      printStr += "\n";
+      client.print(printStr);
+      delay(1);
+      Serial.println("Done.");
+      authStatus = true;
     }
     else
     {
        String req = client.readStringUntil('\r');
-    }
-    
+       Serial.println(req);
+    } 
+  }
+  else
+  {
+    authStatus = false;
+    Serial.println("No connection yet, beginning connection...");
+    client.connect(HOST, PORT);
   }
 
 }

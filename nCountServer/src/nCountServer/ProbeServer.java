@@ -126,6 +126,11 @@ class ProbeServerThread implements Runnable
 								if (!DataStore.idExists(id))
 								{
 									DataStore.newID(id);
+									Chocolat.println("[" + st.elapsedTime() + "] New Device Attached! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
+								}
+								else
+								{
+									Chocolat.println("[" + st.elapsedTime() + "] Existing Device Reattached! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
 								}
 								DataStore.deviceList.add(d);
 								DataStore.updateDeviceList();
