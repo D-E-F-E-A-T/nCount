@@ -15,6 +15,8 @@ const char* password = "password";     // The password of the Wi-Fi network
 
 uint32_t timesActivated = 0;
 
+String macID;
+
 void setup()
 {
   initHardware();
@@ -63,17 +65,17 @@ void runServer()
       Serial.println("Connection success");
     }
   }
-  if(client.connected())
+  if(client && client.connected())
   {
     // authenticate and listen for commands from server.
     if (!authStatus)
     {
       // send the authentication command "AUTH [ID] [MacAddr]"
-      // if we have successfully authenticated (response back is "auth_successful") then set authStatus to true. Next time runServer() is called, since we have authenticated we just listen for commands from server.
+      // if we have successfully authenticated (response back is "auth_successful") then set authStatus to true. Next time runServer() is called.
     }
     else
     {
-      
+       String req = client.readStringUntil('\r');
     }
     
   }
@@ -84,6 +86,13 @@ void runServer()
 void setupWiFi() 
 {
   WiFi.begin(ssid, password);             // Connect to the network
+  uint8_t mac[WL_MAC_ADDR_LENGTH];
+  WiFi.softAPmacAddress(mac);
+  macID = String(mac[WL_MAC_ADDR_LENGTH - 2], HEX) +
+                 String(mac[WL_MAC_ADDR_LENGTH - 1], HEX);
+  macID.toUpperCase();
+  Serial.print("MAC ID: ");
+  Serial.println(macID);
   Serial.print("Connecting to WiFi SSID: \"");
   Serial.print(ssid); Serial.println("\".");
 
