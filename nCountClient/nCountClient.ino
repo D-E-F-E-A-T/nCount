@@ -76,6 +76,10 @@ void runServer()
     {
        String req = client.readStringUntil('\r');
        Serial.println(req);
+       // responses to requests
+       // reset_number should reset the sensor to zero
+       // request_query should cause the device to send "add_num_people [number of people counted]" and then reset the sensor to zero
+       // 
     } 
   }
   else
