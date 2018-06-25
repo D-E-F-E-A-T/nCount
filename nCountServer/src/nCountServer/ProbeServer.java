@@ -127,11 +127,11 @@ class ProbeServerThread implements Runnable
 								if (!DataStore.idExists(id))
 								{
 									DataStore.newID(id);
-									Chocolat.println("[" + st.elapsedTime() + "] New Device Attached! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
+									Chocolat.println("[" + st.elapsedTime() + "] New Device Connected! Bonjour, allons-y! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
 								}
 								else
 								{
-									Chocolat.println("[" + st.elapsedTime() + "] Existing Device Reattached! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
+									Chocolat.println("[" + st.elapsedTime() + "] Existing Device Reconnected! ID: " + d.getID() + ", MAC Address: " + d.getMAC());
 								}
 								DataStore.deviceList.add(d);
 								DataStore.updateDeviceList();
@@ -213,6 +213,7 @@ class ProbeServerThread implements Runnable
 				DataStore.updateDeviceList();
 				querythread.stop();
 				sock.close();
+				Chocolat.println("[" + st.elapsedTime() + "] Sensor disconnected with ID: " + d.getID() + ", MAC Address: " + d.getMAC());
 			}
 		}
 		catch (IOException ioe)
