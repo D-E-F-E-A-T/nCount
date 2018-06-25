@@ -10,8 +10,8 @@
 // USER CONFIGURABLE SETTINGS BELOW //
 //////////////////////////////////////
 
-const char* ssid     = "ViruStop";         // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "tczaflw@747";     // The password of the Wi-Fi network
+const char* ssid     = "WiFi";         // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password = "password";     // The password of the Wi-Fi network
 
 uint32_t timesActivated = 0;
 
@@ -37,7 +37,7 @@ void readSensors()
     flag = true;
   }
 
-  if (analogRead(A0) > 900 && flag) 
+  if (analogRead(A0) >= 900 && flag) 
   {
     timesActivated++;
     Serial.println(timesActivated);
@@ -45,15 +45,37 @@ void readSensors()
   }
 }
 
-
+WiFiClient client;
+bool authStatus = false;
 
 void runServer()
 {
-  WiFiClient client;
-
-  if (!client.connect(HOST, PORT))
+  if(!client.connected())
   {
-    Serial.println("connection failed");
+    Serial.println("No connection yet, beginning connection...");
+    if (!client.connect(HOST, PORT))
+    {
+      Serial.println("Connection failed");
+      authStatus = false;
+    }
+    else
+    {
+      Serial.println("Connection success");
+    }
+  }
+  if(client.connected())
+  {
+    // authenticate and listen for commands from server.
+    if (!authStatus)
+    {
+      // send the authentication command "AUTH [ID] [MacAddr]"
+      // if we have successfully authenticated (response back is "auth_successful") then set authStatus to true. Next time runServer() is called, since we have authenticated we just listen for commands from server.
+    }
+    else
+    {
+      
+    }
+    
   }
 
 }
@@ -62,20 +84,22 @@ void runServer()
 void setupWiFi() 
 {
   WiFi.begin(ssid, password);             // Connect to the network
-  Serial.print("Connecting to WiFi ");
-  Serial.print(ssid); Serial.println(" ...");
+  Serial.print("Connecting to WiFi SSID: \"");
+  Serial.print(ssid); Serial.println("\".");
 
   int i = 0;
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(1000);
-    Serial.print(++i); Serial.print(' ');
+    i++;
+    Serial.print(i);
+    Serial.println();
   }
   
   Serial.println('\n');
   Serial.println("Connection established!");  
-  Serial.print("IP address:\t");
-  Serial.println(WiFi.localIP());         // Send the IP address of the ESP8266 to the computer
+  Serial.print("ESP8266 IP address:\t");
+  Serial.println(WiFi.localIP());
 }
 
 void writeEEPROM(int pos, int val)
