@@ -2,6 +2,8 @@ package nCountServer;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 public class PeriodicQueryThread implements Runnable
 {
@@ -9,12 +11,19 @@ public class PeriodicQueryThread implements Runnable
 	Stopwatch st;
 	BufferedWriter refwriter;
 	Device device = null;
+	Socket socket;
 	
-	public PeriodicQueryThread(BufferedWriter refwriter, Device device, Stopwatch st)
+	String socketIPraw = "";
+	String socketIPfiltered = "";
+	
+	public PeriodicQueryThread(BufferedWriter refwriter, Socket socket, Device device, Stopwatch st)
 	{
 		this.refwriter = refwriter;
+		this.socket = socket;
 		this.device = device;
 		this.st = st;
+		socketIPraw = socket.getRemoteSocketAddress().toString();
+		socketIPfiltered = socketIPraw.substring(1, socketIPraw.indexOf(":"));
 		Chocolat.println("[" + st.elapsedTime() + "] Query thread initialized");
 	}
 	
@@ -32,6 +41,18 @@ public class PeriodicQueryThread implements Runnable
             }
             if (time % 60.0 == 0 && !done) 
             {
+            	try 
+            	{
+					if (!InetAddress.getByName(socketIPfiltered).isReachable(100))
+					{
+						socket.close();
+						return;
+					}
+				} 
+            	catch (IOException e1)
+            	{
+					e1.printStackTrace();
+				}
             	if (device.getAuthStatus())
             	{
             		try 

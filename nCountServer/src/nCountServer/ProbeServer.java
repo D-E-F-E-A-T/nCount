@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.StringTokenizer;
@@ -121,7 +122,7 @@ class ProbeServerThread implements Runnable
 								}
 								d = new Device(id, mac);
 								d.setAuthenticated(true);
-								querythread = new Thread(new PeriodicQueryThread(bw, d, st));
+								querythread = new Thread(new PeriodicQueryThread(bw, sock, d, st));
 								querythread.start();
 								if (!DataStore.idExists(id))
 								{
