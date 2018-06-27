@@ -71,8 +71,6 @@ class ServerThread implements Runnable
 			bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
 			InputStream istream = sock.getInputStream();
 			BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-			// for(;;)
-			// {
 				try
 				{	
 					String s = "HTTP/1.1 200 OK\r\n";
@@ -220,7 +218,6 @@ class ServerThread implements Runnable
 									"<br></font></center>" +
 									"</body>\n" + 
 									"</html>\n";
-							// break;
 						}
 						else if (receiveMessage.contains("GET /about.html"))
 						{
@@ -695,15 +692,11 @@ class ServerThread implements Runnable
 				{
 					Chocolat.println("[" + st.elapsedTime() + "] ServerThread was interrupted: " + e);
 					e.printStackTrace();
-					// break;
 				}
-			// }
 		}
 		catch (IOException ioe)
 		{
 			Chocolat.println("[" + st.elapsedTime() + "] ServerThread failed: " + ioe);
 		}
-		// TODO Auto-generated method stub
-		
 	}
 }
