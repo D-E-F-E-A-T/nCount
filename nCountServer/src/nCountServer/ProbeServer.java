@@ -175,6 +175,7 @@ class ProbeServerThread implements Runnable
 									// TODO: Once the MCU receives the query_success command, it should reset its' own relative count to zero.
 									bw.write("query_success\n");
 									bw.flush();
+									Chocolat.println("[" + st.elapsedTime() + "] ProbeServerThread: Added " + numAdd + " people to total count.");
 								}
 								catch (Exception e)
 								{

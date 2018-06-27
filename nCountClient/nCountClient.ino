@@ -14,7 +14,7 @@
 const char* ssid     = "SSID";         // The SSID (name) of the Wi-Fi network you want to connect to
 const char* password = "PASSWORD";     // The password of the Wi-Fi network
 
-uint32_t timesActivated = 0;
+uint16_t timesActivated = 23;
 
 String macID;
 
@@ -76,6 +76,21 @@ void runServer()
     {
        String req = client.readStringUntil('\r');
        Serial.println(req);
+       String toSend = "";
+       if (req.indexOf("query_success") != -1)
+       {
+        Serial.println("Resetting Times Activated");
+        timesActivated = 0;
+       }
+       else if (req.indexOf("request_query") != -1)
+       {
+        toSend += "add_num_people ";
+        toSend += timesActivated;
+        toSend += "\n";
+        client.print(toSend);
+        delay(1);
+       }
+       
        // responses to requests
        // reset_number should reset the sensor to zero
        // request_query should cause the device to send "add_num_people [number of people counted]" and then reset the sensor to zero
