@@ -581,7 +581,9 @@ class ServerThread implements Runnable
 										"	<center>\n" + 
 										"	<p><strong>\n" + 
 										"	ERROR 400: Bad request issued" +
-										"	</p></strong><br>The sensor was not found, because a malformed name was entered.\n<br><br><a href=\"/index.html\" title=\"Homepage\">[ Back to home ]</a>" + 
+										"	</p></strong><br>The sensor was not found, because a malformed name was entered.\n<br><br>" +
+										"	You searched: \"" + tmpB + "\"<br><br>" +
+										"	<a href=\"/index.html\" title=\"Homepage\">[ Back to home ]</a>" + 
 										"	</center>\n" + 
 										"</div>\n" + 
 										"\n" + 
