@@ -666,13 +666,13 @@ class ServerThread implements Runnable
 									"<div id='searchbox3' class='mascotbox'>\n" + 
 									"	<center>\n" + 
 									"	<p>\n" + 
-									"	<strong>ERROR 404: Page Not Found.</strong><br><br>The page you were trying to access got caught by Mr. Tripp while it was spreading a homemade virus, and is currently being detained with lots of prejudice in the office by an sassy powertripping SJW woman.<br><br>He will be back shortly.<br><br><a href=\"/index.html\" title=\"Homepage\">[ Back to home ]</a>" +
+									"	<strong>ERROR 404: Page Not Found.</strong><br><br>We're sorry, the page requested was not found on this server.<br><br><a href=\"/index.html\" title=\"Homepage\">[ Back to home ]</a>" +
 									"	</p>\n" + 
 									"	</center>\n" + 
 									"</div>\n" + 
 									"<br><br><center>" +
 									"<img src=\""+ DataStore.FourO404 + "\" alt=\"404-image.png\">" +
-									"</center><br>" +
+									"</center><br><br><center>Art by <a href='https://thanshuhai.deviantart.com/'><font color=\"FF00CC\">Thanshuhai</font></a></center><br>" +
 									"\n" + 
 									"</div>\n" + 
 									"<center><br />\n" + 
@@ -682,7 +682,7 @@ class ServerThread implements Runnable
 									" seconds [ 100% Java (nCountServer WebServer) ]       <br />\n" + 
 									"        Server Local Time: " +
 									DataStore.refDate.toString() +
-									"<br></font></center>" +
+									"<br></font></center><br><br><br><br>" +
 									"</body>\n" + 
 									"</html>\n";
 						}
