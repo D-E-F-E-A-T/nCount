@@ -498,9 +498,10 @@ class ServerThread implements Runnable
 											"<br>\n" + 
 											"<div id='searchbox3' class='mascotbox'>\n" + 
 											"	<center>\n" + 
-											"	<p>\n" + 
-											"	ERROR 400: The sensor was not found, because it doesn't exist" +
-											"	</p>\n" + 
+											"	<p><strong>\n" + 
+											"	ERROR 400: Bad request issued" +
+											"	</p></strong>\n" + 
+											"	<br>The sensor was not found, because it doesn't exist.<br><br><a href=\"/index.html\" title=\"Homepage\">[ Back to home ]</a>" +
 											"	</center>\n" + 
 											"</div>\n" + 
 											"\n" + 
@@ -581,9 +582,9 @@ class ServerThread implements Runnable
 										"<br>\n" + 
 										"<div id='searchbox3' class='mascotbox'>\n" + 
 										"	<center>\n" + 
-										"	<p>\n" + 
-										"	ERROR 400: The sensor was not found, because you inputted an invalid name." +
-										"	</p>\n" + 
+										"	<p><strong>\n" + 
+										"	ERROR 400: Bad request issued" +
+										"	</p></strong><br>The sensor was not found, because a malformed name was entered.\n<br><br><a href=\"/index.html\" title=\"Homepage\">[ Back to home ]</a>" + 
 										"	</center>\n" + 
 										"</div>\n" + 
 										"\n" + 
