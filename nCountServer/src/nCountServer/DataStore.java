@@ -1,6 +1,7 @@
 package nCountServer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Stack;
@@ -164,6 +165,7 @@ public class DataStore
 	
 	public static void updateDeviceList()
 	{
+		Collections.sort(deviceList);
 		if(deviceList.isEmpty())
 		{
 			deviceListString = "No sensors connected";

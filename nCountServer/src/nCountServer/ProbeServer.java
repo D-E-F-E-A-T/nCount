@@ -6,21 +6,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
 public class ProbeServer
 {
-	public Stopwatch st;
-	public ServerSocket ssock;
+	private Stopwatch st;
+	private ServerSocket ssock;
+	
 	public ProbeServer(Stopwatch st) throws IOException
 	{
 		this.st = st;
 		Chocolat.println("[" + st.elapsedTime() + "] Sensor Server Listener initialized.");
 		ssock = new ServerSocket(27374);
 	}
+	
 	public void run()
 	{
 	    Chocolat.println("[" + st.elapsedTime() + "] Sensor Connection Server Listening...");
@@ -39,14 +40,13 @@ public class ProbeServer
 	        new Thread(new ProbeServerThread(sock, st)).start();
 	    }
 	}
+	
 }
 class ProbeServerThread implements Runnable
 {
-	Socket sock;
-	Stopwatch st;
-	BufferedWriter bw;
-	
-	Thread thr;
+	private Socket sock;
+	private Stopwatch st;
+	private BufferedWriter bw;
 	
 	boolean isclosed = false;
 	

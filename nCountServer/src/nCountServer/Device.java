@@ -1,6 +1,6 @@
 package nCountServer;
 
-public class Device 
+public class Device implements Comparable<Device>
 {
 	private int IDNum;
 	private String MAC_Addr;
@@ -30,6 +30,18 @@ public class Device
 	public void setAuthenticated(boolean isAuthenticated)
 	{
 		_isAuthenticated = isAuthenticated;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return IDNum + "";
+	}
+	
+	@Override
+	public int compareTo(Device o) 
+	{
+		return toString().compareTo(o.toString());
 	}
 	
 }

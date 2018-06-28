@@ -12,8 +12,8 @@ import java.net.Socket;
 
 public class Server 
 {
-	public Stopwatch st;
-	public ServerSocket ssock;
+	private Stopwatch st;
+	private ServerSocket ssock;
 	
 	public Server(Stopwatch st) throws IOException
 	{
@@ -44,7 +44,7 @@ public class Server
 			{
 				e.printStackTrace();
 			}
-	    	Chocolat.println("[" + st.elapsedTime() + "] Server Connected.");
+	    	Chocolat.println("[" + st.elapsedTime() + "] Server Connected. [IP: " + sock.getRemoteSocketAddress() +"]");
 	        new Thread(new ServerThread(sock, st)).start();
 	    }
 	}
@@ -52,9 +52,9 @@ public class Server
 }
 class ServerThread implements Runnable
 {
-	Socket sock;
-	Stopwatch st;
-	BufferedWriter bw;
+	private Socket sock;
+	private Stopwatch st;
+	private BufferedWriter bw;
 	
 	public ServerThread(Socket sock, Stopwatch st)
 	{
@@ -165,8 +165,8 @@ class ServerThread implements Runnable
 									"		<div>\n" + 
 									"			<form action=\"/post\" method=\"get\">\n" + 
 									"			<div>\n" + 
-									"				<input autofocus=\"autofocus\" id=\"tags\" name=\"tags\" size=\"30\" type=\"text\" value=\"\"><br>\n" + 
-									"				<input type=\"submit\" value=\"Look up sensor ID...\" >\n" + 
+									"				<input autofocus=\"autofocus\" id=\"tags\" name=\"tags\" size=\"30\" type=\"text\" placeholder=\"Enter a sensor ID...\" value=\"\"><br>\n" + 
+									"				<input type=\"submit\" value=\"Search\" >\n" + 
 									"			</div>\n" + 
 									"			</form>\n" + 
 									"		</div>\n" + 

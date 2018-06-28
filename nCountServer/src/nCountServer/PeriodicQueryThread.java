@@ -7,14 +7,13 @@ import java.net.Socket;
 
 public class PeriodicQueryThread implements Runnable
 {
+	private Stopwatch st;
+	private BufferedWriter refwriter;
+	private Device device = null;
+	private Socket socket;
 	
-	Stopwatch st;
-	BufferedWriter refwriter;
-	Device device = null;
-	Socket socket;
-	
-	String socketIPraw = "";
-	String socketIPfiltered = "";
+	private String socketIPraw = "";
+	private String socketIPfiltered = "";
 	
 	public PeriodicQueryThread(BufferedWriter refwriter, Socket socket, Device device, Stopwatch st)
 	{
