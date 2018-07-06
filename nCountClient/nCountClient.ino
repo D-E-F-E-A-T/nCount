@@ -3,7 +3,7 @@
 #include <EEPROM.h>
 #include <ESP8266WiFi.h>        // Include the Wi-Fi library
 
-#define HOST "192.168.1.125"
+#define HOST "192.168.1.126"
 #define PORT 27374
 #define IDNUM 1
 
@@ -11,10 +11,10 @@
 // USER CONFIGURABLE SETTINGS BELOW //
 //////////////////////////////////////
 
-const char* ssid     = "SSID";         // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "PASSWORD";     // The password of the Wi-Fi network
+const char* ssid     = "ViruStop";         // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password = "tczaflw@747";     // The password of the Wi-Fi network
 
-uint16_t timesActivated = 23;
+uint16_t timesActivated = 0;
 
 String macID;
 
